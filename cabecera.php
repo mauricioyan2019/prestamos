@@ -1,8 +1,6 @@
-<?php
-include("sesion.php");
-?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +10,11 @@ include("sesion.php");
     <link rel="stylesheet" href="../assets/css/app.css">
     <link rel="stylesheet" href="../assets/css/app-dark.css">
     <link rel="stylesheet" href="../assets/css/iconly.css">
+    <script src="../assets/js/dark.js"></script>
+    <script src="../assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="../assets/js/app.js"></script>
 </head>
+
 <body>
-<script src="../assets/js/initTheme.js"></script>
-<div id="app">
+    <script src="../assets/js/initTheme.js"></script>
+    <div id="app">

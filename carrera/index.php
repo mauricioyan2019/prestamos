@@ -1,7 +1,18 @@
-﻿<?php
+<?php
+
+include("../sesion.php");
 include("../cabecera.php");
 include("../menu.php");
 include("carrera.php");
+//PERMISOS
+$permiso = new Carrera();
+$permisos = $permiso->permiso($ID,'CURSOS');
+if ($permisos == 0 && $ID != 1) {
+   $mensaje = "¡No tiene permisos para entrar a este modulo!";
+    echo "<script type='text/javascript'>alert('$mensaje'); window.location.href = '../panelcontrol/index.php';</script>";
+    exit();
+}
+//FIN VALIDACION PERMISOS
 ?>
 <div id="main">
   <header class="mb-3">
@@ -14,7 +25,7 @@ include("carrera.php");
     <div class="page-title">
       <div class="row">
         <div class="col-12 col-md-6 order-md-1 order-last">
-          <h3>Listado de Carreras</h3>
+          <h3>Listado de Cursos</h3>
           <!--p class="text-subtitle text-muted">The default layout.</p-->
         </div>
         <div class="col-12 col-md-6 order-md-2 order-first">
@@ -32,7 +43,7 @@ include("carrera.php");
     <section class="section">
       <div class="card">
         <div class="card-header">
-          <h4 class="card-title">Carreras</h4>
+          <h4 class="card-title">Cursos</h4>
         </div>
         <div class="card-body">
           <!--- inico contenido -------------------------------------------------------------------------->
@@ -45,8 +56,11 @@ include("carrera.php");
             <thead class="thead-light">
               <tr>
                 <th>N°</th>
-                <th>Carrera</th>
+                <th>Curso</th>
                 <th>Cantidad de Cuotas</th>
+                <th>Costo Total Curso</th>
+                <th>Costo Inscripcion</th>
+                <th>Detalles</th>
                 <th></th>
               </tr>
               <thead>
@@ -66,6 +80,16 @@ include("carrera.php");
                     <td>
                       <?php echo $item['cantidad_cuotas']; ?>
                     </td>
+                    <td>
+                      <?php echo $item['costo_carrera']; ?>
+                    </td>
+                    <td>
+                      <?php echo $item['inscripcion']; ?>
+                    </td>                    
+                    <td>
+                      <?php echo $item['detalles']; ?>
+                    </td>                    
+
                     <td>
                       <form method="POST" role="form" action="editar.php">
                         <input type="hidden" name="id" value="<?php echo $item['id']; ?>">

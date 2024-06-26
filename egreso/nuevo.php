@@ -1,8 +1,12 @@
 <?php
+include("../sesion.php");
 include("../cabecera.php");
 include("../menu.php");
 include("egreso.php");
 $objeto = new Egreso();
+
+include("../caja/caja.php");
+$caja = new Caja();
 if (isset($_POST['monto']) && !empty($_POST['monto'])) {
 
   $monto = $_POST['monto'];
@@ -20,6 +24,7 @@ if (isset($_POST['monto']) && !empty($_POST['monto'])) {
   );
   if ($todobien) {
     echo "<script language=Javascript> location.href=\"index.php\"; </script>";
+     $todobien = $caja->actualizaregresocaja($caja_id, $monto );
     //header('Location: listado.php');
     exit;
   } else {
@@ -109,7 +114,7 @@ if (isset($_POST['monto']) && !empty($_POST['monto'])) {
 
               <div class="col-md-8 mb-3">
                 <label class="form-label">Monto</label>
-                <input name="monto" class="form-control" type="monto" onkeypress="return soloNumeros(event);" required autofocus />
+                <input name="monto" class="form-control" type="monto" oninput="return soloNumeros(event);" required autofocus />
               </div>
 
               <div class="col-md-8 mb-3">

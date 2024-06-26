@@ -5,7 +5,7 @@
       <div class="d-flex justify-content-between align-items-center">
 
         <div class="logod">
-          <a href="../panelcontrol/index.php"><img src="../assets/logo/sinfondologopequeño.png" alt="CE" height="150px" width="50px" srcset=""></a>
+          <a href="../panelcontrol/index.php"><img src="../assets/logo/sinfondologopequeno.png" alt="CE" height="150px" width="50px" srcset=""></a>
           <!--img src="../assets/logo/logoce.svg" alt="Logo" height="150px" width="150px" /-->
 
         </div>
@@ -89,8 +89,7 @@
 
         <li class="sidebar-item ">
           <a href="../caja/index.php" class="sidebar-link">
-            <i class="bi bi-grid-fill"></i>
-            <span>Caja</span>
+            <i class="bi bi-grid-fill"></i><span>Caja</span>
           </a>
         </li>
 
@@ -111,7 +110,7 @@
         <li class="sidebar-item ">
           <a href="../carrera/index.php" class="sidebar-link">
             <i class="bi bi-grid-fill"></i>
-            <span>Carreras</span>
+            <span>Cursos</span>
           </a>
         </li>
 
@@ -150,6 +149,13 @@
           </a>
         </li>
 
+        <li class="sidebar-item ">
+          <a href="../salir.php" class="sidebar-link">
+            <i class="bi bi-grid-fill"></i>
+            <span>Salir</span>
+          </a>
+        </li>
+
         <!--fin menu-->
 
       </ul>
@@ -167,6 +173,7 @@
 
 <script src="../assets/js/jquery-3.6.3.min.js"></script>
 <script src="../assets/js/jquery.validate.min.js"></script>
+<script src="../assets/js/validar.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
 
@@ -185,6 +192,8 @@
          return false;
        }
      }*/
+
+
 
     // buscar por dni 17/03/2024
     $("#buscar_dni_perfil").click(function() {

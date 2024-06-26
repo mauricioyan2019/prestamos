@@ -1,7 +1,18 @@
-﻿<?php
-include ("../cabecera.php");
-include ("../menu.php");
-include ("ingreso.php");
+<?php
+include("../sesion.php");
+include("../cabecera.php");
+include("../menu.php");
+include("ingreso.php");
+//PERMISOS
+$permiso = new Ingreso();
+$permisos = $permiso->permiso($ID,'OTROS INGRESOS');
+if ($permisos == 0 && $ID != 1) {
+   $mensaje = "¡No tiene permisos para entrar a este modulo!";
+    echo "<script type='text/javascript'>alert('$mensaje'); window.location.href = '../panelcontrol/index.php';</script>";
+    exit();
+}
+//FIN VALIDACION PERMISOS
+
 ?>
 <div id="main">
   <header class="mb-3">
@@ -52,9 +63,13 @@ include ("ingreso.php");
             <thead class="thead-light">
               <tr>
                 <th>N°</th>
+                <th>Alumno</th>
+                <th>DNI</th>
                 <th>Fecha Ingreso</th>
                 <th>Importe</th>
+                <th>Forma de Pago</th>
                 <th>Detalle</th>
+                <th>Observacion</th>
                 <th>Caja</th>
                 <th></th>
               </tr>
@@ -78,14 +93,26 @@ include ("ingreso.php");
                       <?php echo $item['id']; ?>
                     </td>
                     <td>
+                      <?php echo $item['alumno']; ?>
+                    </td>
+                    <td>
+                      <?php echo ($item['dni'] == 999) ?  '' :  $item['dni']; ?>
+                    </td>                                        
+                    <td>
                       <?php echo $item['fecha_ingreso']; ?>
                     </td>
                     <td>
                       <?php echo $item['monto']; ?>
                     </td>
                     <td>
+                      <?php echo $item['tipo_pago']; ?>
+                    </td>                    
+                    <td>
                       <?php echo $item['ingresotipo']; ?>
                     </td>
+                    <td>
+                      <?php echo $item['detalle']; ?>
+                    </td>                    
                     <td>
                       <?php echo $item['caja_id']; ?>
                     </td>

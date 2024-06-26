@@ -2,6 +2,22 @@
 include_once("../bd/conexion.php");
 class Persona
 {
+
+public function permiso(
+    $id,
+    $permiso  
+  ) {
+    $sql = "SELECT p.*, d.* FROM permiso p INNER JOIN detalle_permiso d ON p.id = d.rela_permiso WHERE d.rela_usuario = $id AND p.nombre = '$permiso'";
+    $rs = mysqli_query(conexion::obtenerInstancia(), $sql);
+
+    $existe = mysqli_num_rows($rs);
+
+    // retornar 0 o un registro
+
+    return $existe;
+  }
+
+  
   public function obtenerPersona($dni)
   {
     $consulta = "SELECT * FROM persona where dni='$dni'";
@@ -75,25 +91,25 @@ if (!$stmt) {
 } else {
   // Vincular valores y ejecutar la consulta
   $stmt->execute();
-if ($stmt->errno) {
-  if ($stmt->errno == 1062) {
-    // Registrar el error en un archivo de errores o usar una función personalizada para manejar el error.
-    // Registrar el error en un archivo de errores.
-    error_log("Error al insertar el usuario: DNI duplicado", 0);
-    
-    // Mostrar un mensaje de error personalizado al usuario.
-    trigger_error("El DNI introducido ya está registrado.", E_USER_ERROR);    
-    return false;
-  } else {
-    echo "Error al insertar el usuario: " . $stmt->error . "\n";
-       // Mostrar un mensaje de error personalizado al usuario.
-    trigger_error("El DNI introducido ya está registrado.", E_USER_ERROR); 
-    return false;
-  }
-} else {
-  echo "Usuario insertado correctamente.\n";
-  return true;
-}
+        if ($stmt->errno) {
+            if ($stmt->errno == 1062) {
+                // Registrar el error en un archivo de errores o usar una función personalizada para manejar el error.
+                error_log("Error al insertar el usuario: DNI duplicado", 0);
+                
+                // Mostrar un mensaje de error personalizado al usuario.
+                trigger_error("El DNI introducido ya está registrado.", E_USER_ERROR);    
+                return false;
+            } else {
+                echo "Error al insertar el usuario: " . $stmt->error . "\n";
+                // Mostrar un mensaje de error personalizado al usuario.
+                trigger_error("El DNI introducido ya está registrado.", E_USER_ERROR); 
+                return false;
+            }
+        } else {
+            $inserted_id = mysqli_insert_id(conexion::obtenerInstancia());
+            echo "Usuario insertado correctamente. ID: " . $inserted_id . "\n";
+            return $inserted_id;
+        }
 }
   }
 

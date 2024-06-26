@@ -1,8 +1,9 @@
 <?php
-//session_start();
+include("../sesion.php");
 include("../cabecera.php");
 include("../menu.php");
 include("persona.php");
+
 ?>
 <div id="main">
     <header class="mb-3">
@@ -21,6 +22,7 @@ include("persona.php");
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><?php echo "Usuario : " . $USUARIO; ?></li>
                             <li class="breadcrumb-item"><a href="../panelcontrol/index.php">Panel de Control</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Personas</li>
                         </ol>

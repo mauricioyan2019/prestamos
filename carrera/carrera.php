@@ -2,6 +2,21 @@
 include_once("../bd/conexion.php");
 class Carrera
 {
+  
+public function permiso(
+    $id,
+    $permiso  
+  ) {
+    $sql = "SELECT p.*, d.* FROM permiso p INNER JOIN detalle_permiso d ON p.id = d.rela_permiso WHERE d.rela_usuario = $id AND p.nombre = '$permiso'";
+    $rs = mysqli_query(conexion::obtenerInstancia(), $sql);
+
+    $existe = mysqli_num_rows($rs);
+
+    // retornar 0 o un registro
+
+    return $existe;
+  }
+
   public function obtenerUsuario($usuario)
   {
     $consulta = "SELECT * FROM usuario where usuario='$usuario'";
@@ -16,10 +31,10 @@ class Carrera
   }
 
 
-  public function editar($id,$nombre,$cantidadcuotas)
+  public function editar($id,$nombre,$cantidadcuotas,$costocurso,$costoinscripcion,$detalles)
   {
 
-    $sql = "UPDATE `carrera` SET `nombre`='$nombre',`cantidad_cuotas`='$cantidadcuotas' WHERE `id`='$id';";
+    $sql = "UPDATE `carrera` SET `nombre`='$nombre',`cantidad_cuotas`='$cantidadcuotas',`costo_carrera`='$costocurso',`inscripcion`='$costoinscripcion',`detalles`='$detalles' WHERE `id`='$id';";
     $rs = mysqli_query(conexion::obtenerInstancia(), $sql);
     return $rs;
   }
@@ -41,10 +56,10 @@ class Carrera
 
 
 
-    public function nuevaCarrera($nombrecarrera,$cantidadcuotas) {
+    public function nuevaCarrera($nombrecarrera,$cantidadcuotas,$costocurso,$costoinscripcion,$detalles) {
     $sql = "INSERT INTO `carrera`
-    (`nombre`,`cantidad_cuotas`)
-      VALUES ('$nombrecarrera','$cantidadcuotas');";
+    (`nombre`,`cantidad_cuotas`,`costo_carrera`,`inscripcion`,`detalles`)
+      VALUES ('$nombrecarrera','$cantidadcuotas','$costocurso','$costoinscripcion','$detalles');";
     //echo $sql;
     //exit;
     $rs = mysqli_query(conexion::obtenerInstancia(), $sql);

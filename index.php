@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -23,7 +22,7 @@
 
         <div id="auth-left">
           <div style="text-align: center;">
-          <img src="../admin-ce/assets/logo/logocegrande.jpeg" alt="Logo" height="150px" width="150px" />
+          <img src="../sanjuan/assets/logo/logocegrande.jpeg" alt="Logo" height="150px" width="150px" />
           </div>
 
           <div class="auth-logo">

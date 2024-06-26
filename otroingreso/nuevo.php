@@ -1,9 +1,11 @@
 <?php
+include("../sesion.php");
 include("../cabecera.php");
 include("../menu.php");
 include("ingreso.php");
+include("../caja/caja.php");
 $objeto = new Ingreso();
-
+$caja = new Caja();
 
 if (isset($_POST['monto']) && !empty($_POST['monto'])) {
 
@@ -27,6 +29,10 @@ if (isset($_POST['monto']) && !empty($_POST['monto'])) {
 
   );
   if ($todobien) {
+    //grabo el movimiento en la caja correspondiente
+    $todobien = $caja->actualizaringresocaja($caja_id, $monto );
+
+
     echo "<script language=Javascript> location.href=\"index.php\"; </script>";
     //header('Location: listado.php');
     exit;
@@ -140,7 +146,7 @@ if (isset($_POST['monto']) && !empty($_POST['monto'])) {
 
               <div class="col-md-8 mb-3">
                 <label class="form-label">Monto</label>
-                <input name="monto" id="monto" class="form-control" type="monto" onkeypress="return soloNumeros(event);" required  />
+                <input name="monto" id="monto" class="form-control" type="text" oninput="return soloNumeros(event);" required  />
               </div>
 
 
@@ -148,8 +154,8 @@ if (isset($_POST['monto']) && !empty($_POST['monto'])) {
                 <label>Forma de Pago :</label>
                     <select class="form-control" name="tipo_pago" id="tipo_pago" required>
                          <option value="">Seleccionar...</option>
-                         <option value="CONTADO">Contado</option>
-                         <option value="DEBITO">Debito</option>
+                         <option value="EFECTIVO">Efectivo</option>
+                         <option value="VIRTUAL">Virtual</option>
                     </select>
               </div>
 

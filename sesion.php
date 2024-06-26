@@ -5,10 +5,13 @@ session_start();
 //session_name("sesion_sj2023");
 
 if (isset($_SESSION['sesion_usuario'])) {
-   $ID = $_SESSION['sesion_id'];
-   $USUARIO = $_SESSION['sesion_usuario'];
+  $ID = $_SESSION['sesion_id'];
+  $USUARIO = $_SESSION['sesion_usuario'];
   //   $NOMBRE=$_SESSION['sesion_nombre'];
   // $PERMISO=$_SESSION['sesion_permisos'];
 } else {
-  header("Location:../index.php");
+  echo 1;
+  exit();
+  echo "<script language=Javascript> location.href=\"../index.php\"; </script>";
 }
+?>

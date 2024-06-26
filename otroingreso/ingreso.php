@@ -1,13 +1,42 @@
 <?php
 include_once("../bd/conexion.php");
+//include_once("../sesion.php");
 class Ingreso
 {
 
+public function permiso(
+    $id,
+    $permiso  
+  ) {
+    $sql = "SELECT p.*, d.* FROM permiso p INNER JOIN detalle_permiso d ON p.id = d.rela_permiso WHERE d.rela_usuario = $id AND p.nombre = '$permiso'";
+    $rs = mysqli_query(conexion::obtenerInstancia(), $sql);
+
+    $existe = mysqli_num_rows($rs);
+
+    // retornar 0 o un registro
+
+    return $existe;
+  }
 
   public function obtenerId($id)
   {
     $data=array();
-    $consulta = "SELECT * FROM egreso where id='$id'";
+    $consulta = "SELECT * FROM ingreso where id='$id'";
+    $rs = mysqli_query(conexion::obtenerInstancia(), $consulta);
+    if (mysqli_num_rows($rs) > 0) {
+      while ($fila = mysqli_fetch_assoc($rs)) {
+        $data[] = $fila;
+      }
+      return $data;
+    } else
+      return $rs;
+  }
+
+
+    public function obtenerIdconalumno($id)
+  {
+    $data=array();
+    $consulta = "SELECT i.*,p.dni FROM ingreso i,alumno a,persona p where i.id='$id' and a.persona_id=p.id and i.alumno_id = a.id ";
     $rs = mysqli_query(conexion::obtenerInstancia(), $consulta);
     if (mysqli_num_rows($rs) > 0) {
       while ($fila = mysqli_fetch_assoc($rs)) {
@@ -72,14 +101,17 @@ class Ingreso
     return $rs;
   }
 
-
-    public function editar($egreso_id, $tipoegreso, $monto)
+   
+    public function editar($ingreso_id, $tipoingreso, $monto,$id_alumno,$tipo_pago,$origen)
   {
-    $sql = "UPDATE `egreso`
+    $sql = "UPDATE `ingreso`
     SET 
-      `egreso_tipo` = '$tipoegreso',
-      `monto` = '$monto'
-       WHERE `id` = '$egreso_id'";
+      `ingreso_tipo_id` = '$tipoingreso',
+      `monto` = '$monto',
+      `alumno_id` = '$id_alumno',
+      `tipo_pago` = '$tipo_pago',
+      `origen` = '$origen'
+       WHERE `id` = '$ingreso_id'";
 
     $rs = mysqli_query(conexion::obtenerInstancia(), $sql);
     return $rs;
@@ -87,7 +119,7 @@ class Ingreso
 
   public function listaporcaja($caja)
   {
-    $consulta = "SELECT i.*,it.nombre as ingresotipo FROM ingreso i,ingreso_tipo it where i.ingreso_tipo_id=it.id and caja_id='$caja'";
+    $consulta = "SELECT i.*,it.nombre as ingresotipo,p.apellidonombre as alumno,p.dni FROM ingreso i,ingreso_tipo it,alumno a,persona p where i.ingreso_tipo_id=it.id and i.alumno_id=a.id and a.persona_id=p.id and caja_id='$caja' order by i.id desc";
     $rs = mysqli_query(conexion::obtenerInstancia(), $consulta);
     if (mysqli_num_rows($rs) > 0) {
       while ($fila = mysqli_fetch_assoc($rs)) {
@@ -147,7 +179,12 @@ class Ingreso
     
     $descuento="0";
     $recargo="0";
-    $origen="Socios";
+    if ($alumno_id == 1){
+       $origen="Socios";
+     }else
+     {
+        $origen="Alumno";
+     }
  
 
     $consulta="INSERT INTO `ingreso`
